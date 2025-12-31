@@ -63,3 +63,7 @@ def check_status(job_id: str):
 @app.get("/")
 def root():
     return {"status": "server running"}
+
+@app.get("/health")
+def health():
+    return {"health": "ok"}
