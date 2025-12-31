@@ -15,7 +15,6 @@ app.add_middleware(
 
 JOBS = {}
 
-
 def process_job(job_id: str):
     steps = [
         ("transcribing", "Transcribing Speech"),
@@ -29,8 +28,6 @@ def process_job(job_id: str):
         JOBS[job_id]["status"] = status
         JOBS[job_id]["step"] = step
 
-    JOBS[job_id]["output_url"] = "https://example.com/final_video.mp4"
-
 
 @app.post("/upload")
 async def upload_video(file: UploadFile = File(...)):
@@ -41,7 +38,7 @@ async def upload_video(file: UploadFile = File(...)):
         "step": "Upload Success"
     }
 
-    threading.Thread(target=process_job, args=(job_id,), daemon=True).start()
+    threading.Thread(target=process_job, args=(job_id,)).start()
 
     return {
         "job_id": job_id,
