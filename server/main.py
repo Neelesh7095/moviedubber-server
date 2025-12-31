@@ -6,6 +6,7 @@ import time
 
 app = FastAPI()
 
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -50,7 +51,6 @@ async def upload_video(file: UploadFile = File(...)):
 def get_status(job_id: str):
     if job_id not in JOBS:
         return {"error": "Invalid job id"}
-
     return JOBS[job_id]
 
 
